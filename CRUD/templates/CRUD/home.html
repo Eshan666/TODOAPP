@@ -1,0 +1,45 @@
+{% extends 'CRUD/base.html' %}
+
+{% block content %}
+
+<form method="POST" action="{%url 'home' %}">
+    {% csrf_token %}
+    <div class="container mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Username</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1"name="user">
+
+        <label for="exampleFormControlTextarea1" class="form-label">Task description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note"></textarea>
+        <button type="submit" class="btn btn-primary my-2">Submit</button>
+    </div>
+</form>
+
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Username</th>
+            <th scope="col">Task</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+          <tr>
+            <td>{{task.user}}</td>
+            <td>{{task.note}}</td>
+            <td>{{task.date_created}}</td>           
+            <td> 
+              <a class="btn btn-sm btn-danger" href="{% url 'delete_item' task.id%}">Delete</a>
+            </td>  
+            <td> <a class="btn btn-sm btn-info" href="{% url 'update_item' task.id%}">Update</a> </td>     
+          </tr>
+            {% endfor %}
+          
+        </tbody>
+      </table>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'CRUD/base.html' %}
+
+{% block content %}
+
+<h1>Update here for {{item.user}}'s notes</h1>
+<h1>{{msg}}</h1>
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="container mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Username</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1"name="user" value="{{item.user}}">
+
+        <label for="exampleFormControlTextarea1" class="form-label">Task description</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note">{{item.note}}</textarea>
+        <button type="submit" class="btn btn-primary my-2">Submit</button>
+    </div>
+</form>
+
+{% endblock %}
