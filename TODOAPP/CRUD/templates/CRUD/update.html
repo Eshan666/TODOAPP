@@ -8,7 +8,7 @@
     {% csrf_token %}
     <div class="container mb-3">
         <label for="exampleFormControlInput1" class="form-label">Username</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note">{{item.user}}</textarea>
+        <input type="text" class="form-control" id="exampleFormControlInput1"name="user" value="{{item.user}}">
 
         <label for="exampleFormControlTextarea1" class="form-label">Task description</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="note">{{item.note}}</textarea>

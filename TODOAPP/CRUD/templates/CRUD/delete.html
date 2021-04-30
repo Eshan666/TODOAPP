@@ -1,0 +1,21 @@
+{% extends 'CRUD/base.html' %}
+
+
+{% block content %}
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+<p>Are you sure You want to delete the {{obj}} ?</p>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    <a class= "btn btn-danger" href="{% url 'home' %}">Cancel</a>
+    <input class="btn btn-warning"  type="submit" name="confirm">
+
+</form>
+            </div>
+	</div>
+</div>
+
+{% endblock %}

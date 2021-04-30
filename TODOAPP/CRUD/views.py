@@ -11,24 +11,22 @@ from django.contrib import messages
 @login_required(login_url = "loginPage")
 def home(request):
     context = {}
-
-    username = request.user
-   
+    print(request.user)
     if request.method == 'POST':
-        username = request.session['username']
+        user = request.POST.get('user')
         note = request.POST.get('note')
-        task = Task(user=username, note=note)
-        task.save()  
+        task = Task(user=user, note=note)
+        task.save()
     
-    tasks = Task.objects.filter(user = username)
-    context={"tasks" : tasks,"username" : username}
+    tasks = Task.objects.all()
+    context={"tasks" : tasks}
     return render(request, 'CRUD/home.html',context)
 
 
 @login_required(login_url = "loginPage")
 def update(request):
      return render(request, 'CRUD/update.html')
-   
+
 
 @login_required(login_url = "loginPage")
 def delete_item(request, pk):
@@ -46,18 +44,15 @@ def update_item(request,pk):
     
     
     context = {"item":item}
-  
-    
+
     if request.method == "POST":
-        note = request.POST.get('note')
         user = request.POST.get('user')
+        note = request.POST.get('note')
         item.user = user
         item.note = note
-        item.save()  
-        return redirect("/")
+        item.save()         
+      
 
-    context = {"item":item,}
-     
     return render(request,"CRUD/update.html",context)
 
 
@@ -80,9 +75,8 @@ def registerPage(request):
 
 
         return render(request,"CRUD/register.html",context)
-    
-   
-    
+
+
 
 def loginPage(request):
     
@@ -94,7 +88,6 @@ def loginPage(request):
             username = request.POST.get('username')
             password = request.POST.get('password')
 
-            request.session['username'] = username
             user =  authenticate(request, username=username, password=password)
 
             if user is not None:
@@ -105,6 +98,7 @@ def loginPage(request):
 
     return render(request,"CRUD/login.html")
 
+    
     
 
 def logoutPage(request):
